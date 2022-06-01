@@ -76,9 +76,9 @@ class BaseCAM:
             target_categories = np.argmax(outputs.cpu().data.numpy(), axis=-1)
             targets = [ClassifierOutputTarget(category) for category in target_categories]
 
-        # if self.uses_gradients:
-        #     self.model.zero_grad()
-        #     loss = sum([target(output) for target, output in zip(targets, outputs)])
+        if self.uses_gradients:
+            self.model.zero_grad()
+            loss = sum([target(output) for target, output in zip(targets, outputs)])
         #     loss.backward(retain_graph=True)
 
         # In most of the saliency attribution papers, the saliency is
